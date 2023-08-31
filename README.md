@@ -1,5 +1,7 @@
 # POC
 
+Example of a simple Single Page Application showing a list of products that updates depending on the selected category using Vite, React and Sass
+
 ## Installation
 
 Use the package manager [nodeJS](https://nodejs.org/en/)
@@ -39,7 +41,7 @@ or
 yarn install
 ```
 
-## Before run
+## Before run project
 
 Create an .env file in the project root and insert the VITE_API_URL key with the endpoint to invoke to retrieve the products
 
