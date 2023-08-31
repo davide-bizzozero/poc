@@ -13,7 +13,7 @@ Use the package manager [nodeJS](https://nodejs.org/en/)
 node -v
 ```
 
-### Or if you have nvm installed run the command [nvm](https://github.com/nvm-sh/nvm#readme)
+### If you already have npm installed, you can just run the command [nvm](https://github.com/nvm-sh/nvm#readme)
 
 ```bash
 nvm use
