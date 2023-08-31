@@ -1,0 +1,141 @@
+@use 'components';
+@import 'https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap';
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,100;1,700&family=Roboto+Condensed:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+:root {
+  --color-brand--1: #ffb545;
+  --color-brand--2: #00c46a;
+
+  --color-dark--0: #242a2e;
+  --color-dark--1: #2d3439;
+  --color-dark--2: #42484d;
+  --color-light--1: #aaa;
+  --color-light--2: #fcfcfc;
+  --color-light--3: #d6dee0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 100%;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  width: 100%;
+  padding-top: 120px;
+  font-family: 'Manrope', sans-serif;
+  color: var(--color-text);
+  background-color: var(--color-primary-light);
+  font-weight: 400;
+  line-height: 2;
+  background-color: var(--color-light--2);
+}
+
+h1,
+h2,
+h3,
+h4  {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+}
+
+button {
+  color: inherit;
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+}
+
+[data-type='list'] {
+  list-style: none;
+}
+
+.sr-only:not(:focus):not(:active) {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+main {
+  max-width: 1240px;
+  margin-inline: auto;
+  padding: 1rem;
+}
+
+.product-list {
+  display: grid;
+  grid-template-columns: 200px minmax(100px, 400px);
+}
+
+.smol-css-grid {
+  --min: 30ch;
+  --gap: 1rem;
+
+  display: grid;
+  grid-gap: var(--gap);
+  /* min() with 100% prevents overflow
+  in extra narrow spaces */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--min)), 1fr));
+}
+
+.smol-card-component {
+  --img-ratio: 3/2;
+
+  display: flex;
+  flex-direction: column;
+  /* Supported for flexbox in modern browsers since April 2021 */
+  gap: 1rem;
+  box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.057);
+  border-radius: 0.3rem;
+  height: 100%;
+  font-size: 14px;
+  background-color: #fff;
+}
+
+.smol-card-component > img {
+  aspect-ratio: var(--img-ratio);
+  object-fit: cover;
+  width: 100%;
+}
+
+.smol-card-component > img:first-child {
+  border-radius: 0.3rem 0.3rem 0 0;
+}
+
+.smol-card-component > img:last-child {
+  border-radius: 0 0 0.3rem 0.3rem;
+  margin-top: auto;
+}
+
+.smol-card-component > :not(img) {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.smol-card-component > :not(img):first-child {
+  margin-top: 1rem;
+}
+
+/* Enhanced `:not()` accepts a selector list,
+but as a fallback you can chain `:not()` instead */
+.smol-card-component > :last-of-type:not(img, h2, h3, h4) {
+  margin-bottom: 1rem;
+}
+
+.smol-card-component > :not(h2, h3, h4) {
+  font-size: 0.9rem;
+}
+
+.smol-card-component > a {
+  align-self: start;
+}
