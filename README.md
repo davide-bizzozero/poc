@@ -49,7 +49,7 @@ yarn install
 
 ## Before run project
 
-Create an .env file in the project root and insert the VITE_API_URL key with the endpoint to invoke to retrieve the products
+Create an .env file in the project root and insert the VITE_API_URL key with the endpoint to invoke to retrieve the products informations
 
 ```bash
 VITE_API_URL=[YOUR ENDPOINT]
