@@ -13,6 +13,12 @@ Use the package manager [nodeJS](https://nodejs.org/en/)
 node -v
 ```
 
+### Or if you have nvm installed run the command [nvn](https://github.com/nvm-sh/nvm#readme)
+
+```bash
+nvm use
+```
+
 ### Use [npm](https://www.npmjs.com/)
 
 ```bash
