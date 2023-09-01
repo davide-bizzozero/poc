@@ -9,7 +9,8 @@ import SpinnerFullPage from './components/SpinnerFullPage';
 import Header from './components/Header';
 
 const Homepage = lazy(() => import('./pages/Homepage'));
-const Listingpage = lazy(() => import('./pages/Listingpage'));
+const Listing = lazy(() => import('./pages/Listing'));
+const ProductDetail = lazy(() => import('./pages/ProductDetail'));
 
 export default function App() {
   return (
@@ -20,7 +21,8 @@ export default function App() {
           <Suspense fallback={<SpinnerFullPage />}>
             <Routes>
               <Route index element={<Homepage />} />
-              <Route path="/collection/:handle" element={<Listingpage />} />
+              <Route path="/collection/:handle" element={<Listing />} />
+              <Route path="/collection/:handle/products/:handle/:id" element={<ProductDetail />} />
               <Route path="*" element={<PageNotFound />} />
             </Routes>
           </Suspense>

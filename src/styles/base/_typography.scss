@@ -1,0 +1,23 @@
+h1 {
+  font-size: clamp(1.94rem, calc(1.77rem + 0.87vw), 2.44rem);
+  margin-bottom: 2rem;
+}
+
+h2 {
+  font-size: clamp(1.62rem, calc(1.5rem + 0.58vw), 1.95rem);
+  margin-bottom: 2rem;
+}
+
+h3 {
+  font-size: clamp(1.35rem, calc(1.28rem + 0.37vw), 1.56rem);
+  margin-bottom: 1.5rem;
+}
+
+h1,
+h2,
+h3,
+h4  {
+  font-weight: 700;
+  font-family: inherit;
+  line-height: 1.5;
+}

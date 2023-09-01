@@ -1,0 +1,19 @@
+.breadcrumbs {
+  position: fixed;
+  border-top: 1px solid;
+  width: 100%;
+  left: 0;
+  top: 70px;
+  padding-left: 1rem;
+  z-index: 2;
+  background: var(--color-light--2);
+}
+
+.breadcrumbs-items {
+  display: flex;
+  font-size: 0.8rem;
+
+  a {
+    font-weight: 700;
+  }
+}

@@ -1,24 +1,53 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
-export default function Breadcrumbs({ crumbs }) {
-  if (crumbs.length <= 1) {
-    return null;
-  }
+export default function Breadcrumbs({ collection, products }) {
+  const location = useLocation();
+  const pathnames = location.pathname.split('/').filter((x) => x);
+
+  /* const paths = pathnames.reduce(function (sum, name) {
+    if (name !== 'collection') {
+      sum.push(name);
+    }
+    return sum;
+  }, []);
+ */
+  const paths = pathnames;
+
+  console.log('paths', paths);
 
   return (
-    <div className="mb-4 bg-gray-300">
-      {/* Link back to any previous steps of the breadcrumb. */}
-      {crumbs.map(({ name, path }, key) =>
-        key + 1 === crumbs.length ? (
-          <span key={key} className="bold">
-            {name}
-          </span>
-        ) : (
-          <Link key={key} className="underline text-blue-500 mr-4" to={path}>
-            {name}
-          </Link>
-        ),
-      )}
-    </div>
+    <>
+      {pathnames.map((item) => (
+        <p>{item}</p>
+      ))}
+    </>
   );
+}
+
+{
+  /* <nav aria-label="breadcrumbs">
+      <ul role="list" style={{ display: 'flex' }}>
+        {location.pathname === '/' ? null : (
+          <li key="0">
+            <Link to="/">Home</Link>
+          </li>
+        )}
+        {paths.map((value, index) => {
+          const last = index === paths.length - 1;
+          const to = `/${paths.slice(0, index + 1).join('/')}`;
+          const aria = last ? { 'aria-current': 'location' } : '';
+          return (
+            <li key={index} {...aria}>
+              {last || value === '' ? (
+                <span key={to}>&nbsp;&gt; {value}</span>
+              ) : (
+                <span key={to}>
+                  &nbsp;&gt; <Link to={to}>{value}</Link>
+                </span>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </nav> */
 }

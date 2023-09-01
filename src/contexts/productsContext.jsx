@@ -1,58 +1,130 @@
-import React, { useState, useContext, useEffect } from 'react';
+import { createContext, useEffect, useContext, useReducer, useCallback } from 'react';
 
 const BASE_URL = import.meta.env.VITE_API_URL;
-const AppContext = React.createContext();
+const AppContext = createContext();
 
-const AppProvider = ({ children }) => {
-  const [collections, setCollections] = useState([]);
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [totalProducts, setTotalProducts] = useState(0);
+const initialState = {
+  collections: [],
+  currentCollecion: {},
+  products: [],
+  totalProducts: 0,
+  productDetail: {},
+  isLoading: false,
+  error: '',
+};
 
-  const fetchCollectionListing = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch(`${BASE_URL}/collection_listings.json`);
-      const data = await res.json();
-      setCollections(data.collection_listings || []);
-    } catch (err) {
-      console.error(err.response);
+function reducer(state, action) {
+  switch (action.type) {
+    case 'loading':
+      return { ...state, isLoading: true };
+    case 'collections/loaded':
+      return {
+        ...state,
+        isLoading: false,
+        collections: action.payload,
+      };
+    case 'products/loaded':
+      // eslint-disable-next-line no-case-declarations
+      const collection = state.collections.find((item) => item.collection_id === action.payload.id);
+      return {
+        ...state,
+        isLoading: false,
+        products: action.payload.products,
+        totalProducts: action.payload.total,
+        currentCollecion: collection,
+      };
+    case 'productDetail/loaded':
+      return {
+        ...state,
+        isLoading: false,
+        productDetail: action.payload,
+        currentCollecion: {},
+      };
+    default:
+      throw new Error('Unknown action type');
+  }
+}
+
+function AppProvider({ children }) {
+  const [{ collections, currentCollecion, products, totalProducts, productDetail, isLoading, error }, dispatch] =
+    useReducer(reducer, initialState);
+
+  useEffect(function () {
+    async function fetchCollections() {
+      dispatch({ type: 'loading' });
+
+      try {
+        const res = await fetch(`${BASE_URL}/collection_listings.json`);
+        const data = await res.json();
+        dispatch({ type: 'collections/loaded', payload: data.collection_listings });
+      } catch {
+        dispatch({
+          type: 'rejected',
+          payload: 'There was an error loading collections...',
+        });
+      }
     }
-    setLoading(false);
-  };
+    fetchCollections();
+  }, []);
 
-  const fetchProducts = async (collectionId, start = 0, end) => {
-    if (!collectionId) return;
-    setLoading(true);
+  const getProducts = useCallback(async function getProducts(id, start = 0, end) {
+    if (!Number(id)) return;
+
+    dispatch({ type: 'loading' });
+
     try {
-      const res = await fetch(`${BASE_URL}/collections/${collectionId}/products.json`);
+      const res = await fetch(`${BASE_URL}/collections/${id}/products.json`);
       const data = await res.json();
-      setTotalProducts(data.products.length - 1);
-      setProducts(data.products.slice(start, end) || []);
-    } catch (err) {
-      console.error(err.response);
+      dispatch({
+        type: 'products/loaded',
+        payload: { products: data.products.slice(start, end), total: data.products.length, id: id },
+      });
+    } catch {
+      dispatch({
+        type: 'rejected',
+        payload: 'There was an error loading the products...',
+      });
     }
-    setLoading(false);
-  };
+  }, []);
 
-  useEffect(() => {
-    fetchCollectionListing();
+  const getProductDetail = useCallback(async function getProducts(id) {
+    if (!Number(id)) return;
+
+    dispatch({ type: 'loading' });
+
+    try {
+      const res = await fetch(`${BASE_URL}/products/${id}.json`);
+      const data = await res.json();
+      dispatch({
+        type: 'productDetail/loaded',
+        payload: data.product,
+      });
+    } catch {
+      dispatch({
+        type: 'rejected',
+        payload: 'There was an error loading the product detail...',
+      });
+    }
   }, []);
 
   return (
     <AppContext.Provider
       value={{
-        loading,
         collections,
+        currentCollecion,
+        getProducts,
         products,
         totalProducts,
-        fetchProducts,
+        getProductDetail,
+        productDetail,
+        isLoading,
+        error,
       }}
     >
       {children}
     </AppContext.Provider>
   );
-};
+}
 
 function useGlobalContext() {
   const context = useContext(AppContext);

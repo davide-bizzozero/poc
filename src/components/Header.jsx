@@ -1,22 +1,9 @@
-import { useEffect, useState } from 'react';
 import { useGlobalContext } from '../contexts/productsContext';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function Header() {
-  const { collections } = useGlobalContext();
+  const { collections, currentCollecion } = useGlobalContext();
   const navigateTo = useNavigate();
-  const location = useLocation();
-
-  const [curentCategory, setCurrenCategory] = useState('');
-
-  useEffect(
-    function () {
-      const locationPath = location.pathname;
-      const cat = locationPath.slice(locationPath.lastIndexOf('/') + 1, locationPath.length);
-      setCurrenCategory(cat);
-    },
-    [location],
-  );
 
   function handleChange(value) {
     navigateTo(`/collection/${value}`);
@@ -24,20 +11,33 @@ export default function Header() {
 
   return (
     <header className="header">
+      {console.log('current', currentCollecion.handle)}
       <h1>
-        <a href="/" class="logo">
+        <a href="/" className="logo">
           <span>POC</span>
           <span>Proof Of Concept</span>
         </a>
       </h1>
-      <select value={curentCategory} onChange={(e) => handleChange(e.target.value)}>
-        <option value=""> Change category </option>
-        {collections.map((collection) => (
-          <option value={collection.handle} key={collection.collection_id}>
-            {collection.title}
-          </option>
-        ))}
-      </select>
+
+      {JSON.stringify(currentCollecion) !== '{}' && (
+        <div>
+          <label htmlFor="change-category" className="change-category">
+            Collection:
+          </label>
+          <select
+            id="change-category"
+            name="change-category"
+            value={currentCollecion.handle}
+            onChange={(e) => handleChange(e.target.value)}
+          >
+            {collections.map((collection) => (
+              <option value={collection.handle} key={collection.collection_id}>
+                {collection.title}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
     </header>
   );
 }
