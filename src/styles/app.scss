@@ -1,29 +1,3 @@
 @use 'abstracts';
 @use 'components';
 @use 'base';
-
-button {
-  color: inherit;
-  font-family: inherit;
-  border: none;
-  cursor: pointer;
-}
-
-[data-type='list'] {
-  list-style: none;
-}
-
-.sr-only:not(:focus):not(:active) {
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
-
-.product-list {
-  display: grid;
-  grid-template-columns: 200px minmax(100px, 400px);
-}

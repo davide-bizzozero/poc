@@ -4,8 +4,6 @@
 
   display: grid;
   grid-gap: var(--gap);
-  /* min() with 100% prevents overflow
-  in extra narrow spaces */
   grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--min)), 1fr));
 }
 
@@ -13,7 +11,6 @@
   --img-ratio: 3/2;
   display: flex;
   flex-direction: column;
-  position: relative;
   gap: 1rem;
   box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.057);
   border-radius: 0.3rem;
@@ -58,13 +55,6 @@
   }
 }
 
-.product-type {
-  position: absolute;
-  right: -1rem;
-  bottom: 0;
-  width: auto;
-  background: var(--color-dark--1);
-  padding: 0 0.5rem;
-  border-radius: 3px 0 0 3px;
-  color: var(--color-light--3);
+[data-type='list'] {
+  list-style: none;
 }

@@ -1,6 +1,6 @@
 # POC
 
-Example of a simple Single Page Application showing a list of products that updates depending on the selected category using Vite, React, Redux and Sass
+Example of a simple Single Page Application showing a list of products that updates depending on the selected category using Vite, React and Sass
 
 ## Installation
 

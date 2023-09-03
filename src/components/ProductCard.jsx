@@ -10,7 +10,10 @@ export default function ProductCard({ image, product, type }) {
       </figure>
       <h3>{product.title}</h3>
       {product.vendor && <p>by {product.vendor}</p>}
-      {product.tags && <div className="product-type">{product.tags}</div>}
+      {product.tags && <p className="product -type">{product.tags}</p>}
+
+      {product.product_type && <div className="product-type">{product.product_type}</div>}
+
       <NavLink to={linkTo} className="product-cta">
         <span className="screen-reader-only">See product{type === 'collection' ? 's' : ''}</span>
       </NavLink>

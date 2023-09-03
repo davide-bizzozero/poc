@@ -11,7 +11,6 @@ export default function Header() {
 
   return (
     <header className="header">
-      {console.log('current', currentCollecion.handle)}
       <h1>
         <a href="/" className="logo">
           <span>POC</span>

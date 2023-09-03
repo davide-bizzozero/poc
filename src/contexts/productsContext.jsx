@@ -33,6 +33,16 @@ function reducer(state, action) {
         totalProducts: action.payload.total,
         currentCollecion: collection,
       };
+    case 'products/sortAscending':
+      return {
+        ...state,
+        products: action.payload,
+      };
+    case 'products/sortDescending':
+      return {
+        ...state,
+        products: action.payload,
+      };
     case 'productDetail/loaded':
       return {
         ...state,
@@ -67,7 +77,7 @@ function AppProvider({ children }) {
     fetchCollections();
   }, []);
 
-  const getProducts = useCallback(async function getProducts(id, start = 0, end) {
+  const getProducts = useCallback(async function getProducts(id, start = 0, end, sort) {
     if (!Number(id)) return;
 
     dispatch({ type: 'loading' });
@@ -75,9 +85,11 @@ function AppProvider({ children }) {
     try {
       const res = await fetch(`${BASE_URL}/collections/${id}/products.json`);
       const data = await res.json();
+      const productList = data.products;
+      if (sort === 'desc') productList.reverse();
       dispatch({
         type: 'products/loaded',
-        payload: { products: data.products.slice(start, end), total: data.products.length, id: id },
+        payload: { products: productList.slice(start, end), total: productList.length, id: id },
       });
     } catch {
       dispatch({
