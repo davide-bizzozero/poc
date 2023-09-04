@@ -35,7 +35,7 @@ export default function Listingpage() {
 
   if (isLoading) return <SpinnerFullPage />;
 
-  document.title = `POC - ${collection.title}`;
+  document.title = `POC - ${collection?.title}`;
 
   return (
     <>
