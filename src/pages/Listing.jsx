@@ -17,7 +17,7 @@ export default function Listingpage() {
   const startPage = (currentPage - 1) * PageSize;
   const endPage = startPage + PageSize;
   const collection = collections.find((item) => item.handle === handle);
-  const [sort, setSort] = useState('asc');
+  const [sort, setSort] = useState('desc');
 
   useEffect(
     function () {
@@ -47,8 +47,8 @@ export default function Listingpage() {
       <h2 className="text-center">{currentCollecion.title}</h2>
       <label htmlFor="orderBy">Order by:</label>
       <select id="orderBy" defaultValue={sort} onChange={onSelectionChange}>
-        <option value="asc">A - z &#8595;</option>
-        <option value="desc">Z - a &#8593;</option>
+        <option value="desc">A - z &#8595;</option>
+        <option value="asc">Z - a &#8593;</option>
       </select>
 
       <ProductList products={products} />

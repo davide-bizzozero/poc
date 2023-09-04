@@ -24,13 +24,20 @@ function reducer(state, action) {
         collections: action.payload,
       };
     case 'products/loaded':
-      // eslint-disable-next-line no-case-declarations
-      const collection = state.collections.find((item) => item.collection_id === action.payload.id);
+      /* eslint-disable no-case-declarations */
+      const collection = state.collections.find((item) => item.collection_id === action.payload.collectionId);
+      const productList = action.payload.products.sort((a, b) => a.title.localeCompare(b.title));
+      const total = productList.length;
+      const start = action.payload.start;
+      const end = action.payload.end;
+
+      if (action.payload.order === 'asc') productList.reverse();
+
       return {
         ...state,
         isLoading: false,
-        products: action.payload.products,
-        totalProducts: action.payload.total,
+        products: productList.slice(start, end),
+        totalProducts: total,
         currentCollecion: collection,
       };
     case 'products/sortAscending':
@@ -77,19 +84,18 @@ function AppProvider({ children }) {
     fetchCollections();
   }, []);
 
-  const getProducts = useCallback(async function getProducts(id, start = 0, end, sort) {
-    if (!Number(id)) return;
+  const getProducts = useCallback(async function getProducts(collectionId, start = 0, end, order) {
+    if (!Number(collectionId)) return;
 
     dispatch({ type: 'loading' });
 
     try {
-      const res = await fetch(`${BASE_URL}/collections/${id}/products.json`);
+      const res = await fetch(`${BASE_URL}/collections/${collectionId}/products.json`);
       const data = await res.json();
-      const productList = data.products;
-      if (sort === 'desc') productList.reverse();
+
       dispatch({
         type: 'products/loaded',
-        payload: { products: productList.slice(start, end), total: productList.length, id: id },
+        payload: { products: data.products, start: start, end: end, collectionId: collectionId, order: order },
       });
     } catch {
       dispatch({
