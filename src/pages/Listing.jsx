@@ -45,11 +45,15 @@ export default function Listingpage() {
         </li>
       </Breadcrumbs>
       <h2 className="text-center">{currentCollecion.title}</h2>
-      <label htmlFor="orderBy">Order by:</label>
-      <select id="orderBy" defaultValue={sort} onChange={onSelectionChange}>
-        <option value="desc">A - z &#8595;</option>
-        <option value="asc">Z - a &#8593;</option>
-      </select>
+      <div className="order">
+        <label htmlFor="orderBy" className="select-label">
+          Order by:
+        </label>
+        <select id="orderBy" defaultValue={sort} onChange={onSelectionChange}>
+          <option value="desc">A - z &#8595;</option>
+          <option value="asc">Z - a &#8593;</option>
+        </select>
+      </div>
 
       <ProductList products={products} />
       <Pagination className="pagination-bar" currentPage={currentPage} totalCount={totalProducts} pageSize={PageSize} />

@@ -20,7 +20,7 @@ export default function Header() {
 
       {JSON.stringify(currentCollecion) !== '{}' && (
         <div>
-          <label htmlFor="change-category" className="change-category">
+          <label htmlFor="change-category" className="select-label">
             Collection:
           </label>
           <select
