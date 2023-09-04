@@ -40,16 +40,6 @@ function reducer(state, action) {
         totalProducts: total,
         currentCollecion: collection,
       };
-    case 'products/sortAscending':
-      return {
-        ...state,
-        products: action.payload,
-      };
-    case 'products/sortDescending':
-      return {
-        ...state,
-        products: action.payload,
-      };
     case 'productDetail/loaded':
       return {
         ...state,
