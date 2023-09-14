@@ -1,10 +1,6 @@
 import { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-//import Homepage from './pages/Homepage';
-
-//import Listingpage from './pages/Listingpage';
 import PageNotFound from './pages/PageNotFound';
-//import PassengersList from './components/PassengersList';
 import SpinnerFullPage from './components/SpinnerFullPage';
 import Header from './components/Header';
 
